@@ -37,6 +37,7 @@
 .classpath
 .project
 .springBeans
+dummy.txt
 
 **/rebel.xml
 
