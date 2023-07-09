@@ -3,6 +3,7 @@
  */
 package de.hybris.training.facades.populators;
 
+import com.training.model.QuestionModel;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.converters.Populator;
 import de.hybris.platform.core.enums.Gender;
@@ -16,6 +17,7 @@ import de.hybris.training.facades.product.data.GenderData;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hybris.training.facades.product.data.QuestionData;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Required;
 
@@ -32,10 +34,23 @@ public class ApparelProductPopulator implements Populator<ProductModel, ProductD
 		return genderConverter;
 	}
 
+	private Converter<QuestionModel, QuestionData> questionConverter;
+
+	protected Converter<QuestionModel, QuestionData> getQuestionConverter()
+	{
+		return questionConverter;
+	}
+
 	@Required
 	public void setGenderConverter(final Converter<Gender, GenderData> genderConverter)
 	{
 		this.genderConverter = genderConverter;
+	}
+
+	@Required
+	public void setQuestionConverter(final Converter<QuestionModel, QuestionData> questionConverter)
+	{
+		this.questionConverter = questionConverter;
 	}
 
 	@Override
@@ -54,6 +69,15 @@ public class ApparelProductPopulator implements Populator<ProductModel, ProductD
 					genders.add(getGenderConverter().convert(gender));
 				}
 				target.setGenders(genders);
+			}
+			if (CollectionUtils.isNotEmpty(apparelProductModel.getQuestion()))
+			{
+				final List<QuestionData> questions = new ArrayList<QuestionData>();
+				for (final QuestionModel questionModel : apparelProductModel.getQuestion())
+				{
+					questions.add(getQuestionConverter().convert(questionModel));
+				}
+				target.setQuestions(questions);
 			}
 		}
 	}

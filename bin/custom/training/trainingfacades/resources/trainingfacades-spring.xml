@@ -70,6 +70,22 @@
 		<property name="typeService" ref="typeService"/>
 	</bean>
 
+
+	<alias name="acceleratorQuestionConverter" alias="questionConverter"/>
+	<bean id="acceleratorQuestionConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.training.facades.product.data.QuestionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="questionDataPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultQuestionDataPopulator" alias="questionDataPopulator"/>
+	<bean id="defaultQuestionDataPopulator" class="de.hybris.training.facades.populators.QuestionDataPopulator" >
+		<property name="typeService" ref="typeService"/>
+	</bean>
+
 	<bean id="apparelProductPopulator" class="de.hybris.training.facades.populators.ApparelProductPopulator" >
 		<property name="genderConverter" ref="genderConverter"/>
 	</bean>
