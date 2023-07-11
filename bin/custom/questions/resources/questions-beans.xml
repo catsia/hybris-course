@@ -17,4 +17,12 @@
 	</bean>
 	-->
 
+	<bean class="com.hybris.training.questions.data.QuestionData">
+		<property name="code" type="String"/>
+		<property name="question" type="String"/>
+		<property name="questionCustomer" type="String"/>
+		<property name="answer" type="String"/>
+		<property name="answerCustomer" type="String"/>
+	</bean>
+
 </beans>

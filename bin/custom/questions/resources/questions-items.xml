@@ -45,8 +45,8 @@
             </itemtype>
 
         <itemtype code="QuestionsCMSComponent" generate="true"
-                  extends="SimpleCMSComponent" autocreate="true">
-            <deployment table="QuestionsCMSComponent" typecode="30271"/>
+                  extends="SimpleCMSComponent" autocreate="true"
+                  jaloclass="com.training.jalo.QuestionsCMSComponent">
             <attributes>
                 <attribute qualifier="numberOfQuestionsToShow" generate="true" type="java.lang.Integer">
                     <modifiers optional="false"/>

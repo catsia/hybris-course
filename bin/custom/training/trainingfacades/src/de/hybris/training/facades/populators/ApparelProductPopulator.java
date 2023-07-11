@@ -17,7 +17,7 @@ import de.hybris.training.facades.product.data.GenderData;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hybris.training.facades.product.data.QuestionData;
+import com.hybris.training.questions.data.QuestionData;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Required;
 
