@@ -12,7 +12,7 @@ $searchConfigName=
 $facetSearchConfigName=
 $facetSearchConfigDescription=
 $searchIndexNamePrefix=
-$solrIndexedType=
+$solrIndexedType=apparel-ukProductType
 $indexBaseSite=
 $indexLanguages=ja,en,de,zh
 $indexCurrencies=JPY,USD
@@ -36,6 +36,9 @@ INSERT_UPDATE SolrSearchConfig;description[unique=true];pageSize
 #
 
 # Declare the indexed type Product
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);localized[default=false];fieldValueProvider
+;$solrIndexedType;questionsCount;string;;productQuestionsProvider
+
 INSERT_UPDATE SolrIndexedType;identifier[unique=true];type(code);variant;sorts(&sortRefID)
 
 INSERT_UPDATE SolrFacetSearchConfig;name[unique=true];description;indexNamePrefix;languages(isocode);currencies(isocode);solrServerConfig(name);solrSearchConfig(description);solrIndexConfig(name);solrIndexedTypes(identifier);enabledLanguageFallbackMechanism;$catalogVersions
