@@ -33,7 +33,7 @@ public class ProductQuestionsProvider implements FieldValueProvider, Serializabl
 
     protected List<FieldValue> createFieldValue(final ProductModel product, final LanguageModel language, final IndexedProperty indexedProperty) {
         final List<FieldValue> fieldValues = new ArrayList<FieldValue>();
-        final String questionsCount = getQuestionsCount(product, language);
+        final Integer questionsCount = getQuestionsCount(product, language);
         if (questionsCount != null) {
             addFieldValues(fieldValues, indexedProperty, language, questionsCount);
         }
@@ -47,8 +47,8 @@ public class ProductQuestionsProvider implements FieldValueProvider, Serializabl
         }
     }
 
-    private String getQuestionsCount(ProductModel product, LanguageModel language) {
-        return String.valueOf(product.getQuestion().size());
+    private Integer getQuestionsCount(ProductModel product, LanguageModel language) {
+        return product.getQuestion().size();
     }
 
     @Required
