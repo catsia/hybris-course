@@ -52,9 +52,13 @@ INSERT_UPDATE SolrValueRangeSet;name[unique=true];qualifier;type;solrValueRanges
 # Define price ranges
 INSERT_UPDATE SolrValueRange;&rangeValueRefID;solrValueRangeSet(name)[unique=true];name[unique=true];from;to
 ;rangeQuestion1;questionsCountRange;0;0;0
-;rangeQuestion2;questionsCountRange;1-5;1;5
-;rangeQuestion3;questionsCountRange;6-10;6;10
-;rangeQuestion4;questionsCountRange;10-more;10;1000
+;rangeQuestion2;questionsCountRange;1;1;1
+;rangeQuestion3;questionsCountRange;2;2;2
+;rangeQuestion4;questionsCountRange;3;3;3
+;rangeQuestion5;questionsCountRange;4;4;4
+;rangeQuestion6;questionsCountRange;5;5;5
+;rangeQuestion7;questionsCountRange;6;6;6
+;rangeQuestion8;questionsCountRange;7-more;7;
 
 # Non-facet properties
 INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;valueProviderParameter
