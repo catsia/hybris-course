@@ -1,0 +1,13 @@
+$productCatalog=apparelProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+
+INSERT_UPDATE UserPriceGroup; code[unique = true];name
+;priceDependentOnOrderGroup;Order Group
+
+
+INSERT_UPDATE PriceRow;product(code, $catalogVersion)[unique=true] ; ug(code)[allownull=true] ; net[unique=true,default=false] ; currency(isocode); price ;unit(code)[default=pieces]; minqtd; unitFactor
+;300047199;priceDependentOnOrderGroup;;GBP; 90;;2;2
+
+INSERT_UPDATE Customer ; uid[unique=true] ; Europe1PriceFactory_UPG(code)
+;k.l@mail.by;priceDependentOnOrderGroup
+
