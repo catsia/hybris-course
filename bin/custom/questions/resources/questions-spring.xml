@@ -13,8 +13,11 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context.xsd">
            
+
     <context:annotation-config/>
 	<context:component-scan base-package="com.training.controllers"/>
+
+ 
 	<bean id="questionsCoreDataImportedEventListener" parent="abstractCoreDataImportedEventListener">
 		<property name="supportedChannels">
 			<list value-type="de.hybris.platform.commerceservices.enums.SiteChannel">
@@ -36,6 +39,7 @@
 		<property name="extensionName" value="questions" />
 	</bean>
 
+
 	<alias name="acceleratorQuestionConverter" alias="questionConverter"/>
 	<bean id="acceleratorQuestionConverter" parent="abstractPopulatingConverter">
 		<property name="targetClass" value="com.hybris.training.questions.data.QuestionData"/>
@@ -50,5 +54,6 @@
 	<bean id="defaultQuestionDataPopulator" class="com.training.populators.QuestionDataPopulator" >
 		<property name="typeService" ref="typeService"/>
 	</bean>
+
 
 </beans>

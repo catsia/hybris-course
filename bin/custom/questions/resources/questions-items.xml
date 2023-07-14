@@ -44,6 +44,7 @@
                 </attributes>
             </itemtype>
 
+
         <itemtype code="QuestionsCMSComponent" generate="true"
                   extends="SimpleCMSComponent" autocreate="true"
                   jaloclass="com.training.jalo.QuestionsCMSComponent">
@@ -58,6 +59,7 @@
                 </attribute>
             </attributes>
         </itemtype>
+
 <!--
 		<itemtype generate="true"
 		   code="MyProduct"

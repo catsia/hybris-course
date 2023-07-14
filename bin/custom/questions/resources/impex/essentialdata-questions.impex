@@ -1,3 +1,4 @@
+
 $productCatalog=apparelProductCatalog
 $product=product(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
 
