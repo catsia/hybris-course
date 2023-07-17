@@ -70,8 +70,12 @@
 		<property name="typeService" ref="typeService"/>
 	</bean>
 
+
+
+
 	<bean id="apparelProductPopulator" class="de.hybris.training.facades.populators.ApparelProductPopulator" >
 		<property name="genderConverter" ref="genderConverter"/>
+		<property name="questionConverter" ref="questionConverter"/>
 	</bean>
 
 	<!-- Add the apparelProductPopulator to the productConverter -->

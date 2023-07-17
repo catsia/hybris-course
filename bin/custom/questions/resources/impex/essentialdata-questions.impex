@@ -1,7 +1,9 @@
+
+$productCatalog=apparelProductCatalog
 $product=product(code, catalogVersion(catalog(id[default='$productCatalog']),version[default='Staged']))
 
 INSERT_UPDATE Question;code[unique=true];$product;question;questionCustomer(uid)
- ;001;M18729_B;Is it good?;anonymous
+ ;001;M33477_B;Is it good?;anonymous
  ;002;M25687;Can I use it with keys?;matheu.silva@rustic-hw.com
  ;003;300047199;How should I tell...;anthony.lombardi@rustic-hw.com
  ;004;300310086;This is crap, mine is better;mingmei.wang@pronto-hw.com

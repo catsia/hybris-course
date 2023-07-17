@@ -10,10 +10,10 @@
 			xsi:noNamespaceSchemaLocation="items.xsd">
 	<relations>
         <relation code="Product2Questions" autocreate="true" generate="false" localized="false">
-            <sourceElement qualifier="product" type="Product" collectiontype="set" cardinality="many" ordered="false">
+            <sourceElement qualifier="product" type="Product" collectiontype="set" cardinality="one">
                 <modifiers read="true" write="true" search="true" optional="true" />
             </sourceElement>
-            <targetElement qualifier="question" type="Question" cardinality="one">
+            <targetElement qualifier="question" type="Question" cardinality="many" ordered="false">
                 <modifiers read="true" write="true" search="true" optional="true" />
             </targetElement>
         </relation>
@@ -43,6 +43,23 @@
                     </attribute>
                 </attributes>
             </itemtype>
+
+
+        <itemtype code="QuestionsCMSComponent" generate="true"
+                  extends="SimpleCMSComponent" autocreate="true"
+                  jaloclass="com.training.jalo.QuestionsCMSComponent">
+            <attributes>
+                <attribute qualifier="numberOfQuestionsToShow" generate="true" type="java.lang.Integer">
+                    <modifiers optional="false"/>
+                    <persistence type="property" />
+                    <defaultvalue>3</defaultvalue>
+                </attribute>
+                <attribute qualifier="size" generate="true" type="java.lang.Integer">
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
 <!--
 		<itemtype generate="true"
 		   code="MyProduct"
