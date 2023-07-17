@@ -1,0 +1,63 @@
+
+INSERT_UPDATE PromotionSourceRule;code[unique=true];name;description;priority;stackable[default=false];website(Identifier);conditions;actions;messageFired;
+                                 ;"discount_cart_above_100_10_percent";"10% Discount for Cart Over 100.00 pounds";"10% Discount for Cart Over 100.00 pounds!";250;true;"apparelUKPromoGrp";"[
+  {
+
+    ""definitionId"": ""y_cart_total"",
+    ""parameters"": {
+      ""value"": {
+        ""uuid"": ""d4c6e807-115e-4c25-a7ca-744e1d51a0c2"",
+        ""type"": ""Map(ItemType(Currency),java.math.BigDecimal)"",
+        ""value"": {
+          ""GBP"": 100
+        }
+      },
+      ""operator"": {
+        ""uuid"": ""7e33261a-beff-4fff-bb5d-e42f5c685326"",
+        ""type"": ""Enum(de.hybris.platform.ruledefinitions.AmountOperator)"",
+        ""value"": ""GREATER_THAN_OR_EQUAL""
+      }
+    },
+    ""children"": []
+  }
+]";"[
+   {
+      ""definitionId"": ""y_order_percentage_discount"",
+      ""parameters"": {
+         ""value"": {
+            ""uuid"": ""7e33261a-beff-4fff-bb5d-e42f5c685326"",
+            ""type"": ""java.math.BigDecimal"",
+            ""value"": 10
+         }
+      }
+   }
+]";"The cart total is over 100.00 pounds therefore a 10% discount has been applied";
+
+INSERT_UPDATE PromotionSourceRule;code[unique=true];name;description;priority;stackable[default=false];website(Identifier);conditions;actions;messageFired;
+                                 ;"coupon_10_percent";"10% Discount for Cart";"Enter code fo 10% Discount!";250;true;"apparelUKPromoGrp";"[
+     {""definitionId"":
+            ""y_qualifying_coupons"",
+            ""parameters"":
+         {""coupons"":{
+            ""uuid"":""f58862cf-3091-4511-b28f-57427931a7c5"",
+             ""type"":""List(ItemType(AbstractCoupon))"",
+             ""value"":[""HOLIDAY10""]
+             }
+         },
+             ""children"":[]
+      }]";"[
+   {
+      ""definitionId"": ""y_order_percentage_discount"",
+      ""parameters"": {
+         ""value"": {
+            ""uuid"": ""7e33261a-beff-4fff-bb5d-e42f5c685326"",
+            ""type"": ""java.math.BigDecimal"",
+            ""value"": 10
+         }
+      }
+   }
+]";"10% discount has been applied";
+
+
+INSERT_UPDATE SingleCodeCoupon; couponId[unique = true]; maxRedemptionsPerCustomer; maxTotalRedemptions; active[default = true]
+                              ; HOLIDAY10                   ; 1                        ; 10                 ; true
