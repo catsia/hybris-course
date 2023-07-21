@@ -257,8 +257,20 @@
 		<property name="businessProcessService" ref="businessProcessService"/>
 	</bean>
 
+
+	<bean id="newQuestionsEmailContext"
+		  class="de.hybris.training.facades.process.email.context.NewQuestionsEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype" >
+		<property name="questionConverter" ref="questionConverter"/>
+	</bean>
+
 	<!-- Process resources definition -->
 
+	<bean id="newQuestionsEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/trainingcore/processes/newQuestionsEmailProcess.xml"/>
+	</bean>
 	<bean id="customerRegistrationEmailProcessDefinitionResource"
 	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
 		<property name="resource" value="classpath:/trainingcore/processes/customerRegistrationEmailProcess.xml"/>
@@ -301,6 +313,10 @@
 	</bean>
 
 	<!-- Actions -->
+	<bean id="generateNewQuestionsEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NewQuestionsEmailTemplate"/>
+	</bean>
+
 	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
 	      abstract="true">
 		<property name="modelService" ref="modelService"/>
@@ -502,6 +518,26 @@
 		<property name="commerceQuoteDao" ref="commerceQuoteDao"/>
 		<property name="eventService" ref="eventService" />
 		<property name="timeService" ref="timeService" />
+	</bean>
+
+	<bean id="newQuestionsJobPerformable"
+		  class="de.hybris.training.core.job.NewQuestionsJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="questionsDao" ref="questionsDao"/>
+		<property name="lastTimeCalledDao" ref="lastTimeCalledDao"/>
+	</bean>
+
+	<alias name="defaultQuestionsDao" alias="questionsDao" />
+	<bean id="defaultQuestionsDao" class="de.hybris.training.core.dao.impl.DefaultQuestionsDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias name="defaultLastTimeCalledDao" alias="lastTimeCalledDao" />
+	<bean id="defaultLastTimeCalledDao" class="de.hybris.training.core.dao.impl.DefaultLastTimeCalledDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
 	</bean>
 
 	<import resource="/trainingcore/processes/quote/quote-buyer-process-spring.xml"/>

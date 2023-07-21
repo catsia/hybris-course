@@ -61,6 +61,7 @@ velocity.log
 /bin/custom/**/build.xml
 /bin/custom/**/testclasses/**/*.class
 /bin/custom/**/lib/**
+/bin/custom/**/jalo/**
 
 /bin/custom/**/web/addonsrc/**
 /bin/custom/**/web/commonwebsrc/**
