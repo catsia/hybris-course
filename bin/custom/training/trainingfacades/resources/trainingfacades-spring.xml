@@ -78,6 +78,12 @@
 		<property name="questionConverter" ref="questionConverter"/>
 	</bean>
 
+	<alias name="customSearchResultProductPopulator" alias="commerceSearchResultProductPopulator"/>
+	<bean id="customSearchResultProductPopulator"
+		  class="de.hybris.training.facades.populators.CustomSearchResultVariantProductPopulator"
+		  parent="variantCommerceSearchResultProductPopulator">
+	</bean>
+
 	<!-- Add the apparelProductPopulator to the productConverter -->
 	<bean parent="modifyPopulatorList">
 		<property name="list" ref="productConverter"/>
