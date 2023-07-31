@@ -1,6 +1,8 @@
 package de.hybris.training.core.job;
 
 import com.training.model.QuestionModel;
+import de.hybris.platform.cronjob.model.CronJobHistoryModel;
+import de.hybris.platform.servicelayer.cronjob.CronJobHistoryService;
 import de.hybris.training.core.dao.LastTimeCalledDao;
 import de.hybris.training.core.dao.QuestionsDao;
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
@@ -16,6 +18,7 @@ import de.hybris.training.core.model.NewQuestionsEmailProcessModel;
 import de.hybris.training.core.model.NewQuestionsJobPerformableModel;
 import org.springframework.beans.factory.annotation.Required;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +26,7 @@ public class NewQuestionsJobPerformable extends AbstractJobPerformable<NewQuesti
 
     private ModelService modelService;
     private BusinessProcessService businessProcessService;
-
+    private CronJobHistoryService cronJobHistoryService;
     private BaseSiteService baseSiteService;
     private QuestionsDao questionsDao;
     private LastTimeCalledDao lastTimeCalledDao;
@@ -79,40 +82,48 @@ public class NewQuestionsJobPerformable extends AbstractJobPerformable<NewQuesti
         this.modelService = modelService;
     }
 
+    @Required
+    public void setCronJobHistoryService(final CronJobHistoryService cronJobHistoryService) {
+        this.cronJobHistoryService = cronJobHistoryService;
+    }
+
     @Override
     public PerformResult perform(NewQuestionsJobPerformableModel cronJobModel) {
         final NewQuestionsEmailProcessModel newQuestionsProcessModel = (NewQuestionsEmailProcessModel) getBusinessProcessService().createProcess(
                 "newQuestionsEmailProcess-" + System.currentTimeMillis(),
                 "newQuestionsEmailProcess");
 
-        BaseSiteModel baseSite = baseSiteService.getBaseSiteForUID(SITE_UID);
-        newQuestionsProcessModel.setSite(baseSite);
-        newQuestionsProcessModel.setLanguage(baseSite.getDefaultLanguage());
-        newQuestionsProcessModel.setStore(baseSite.getStores().get(0));
+        Date date = getLastCalledTime(cronJobModel);
 
-        List<LastTimeCalledModel> lastTimeCalledList = lastTimeCalledDao.getLastCalledTime();
-        List<QuestionModel> questionModelList;
-        LastTimeCalledModel lastTimeCalledModel;
-        if (lastTimeCalledList.isEmpty()) {
-            lastTimeCalledModel = modelService.create(LastTimeCalledModel.class);
-            lastTimeCalledModel.setCode("001");
-            questionModelList = questionsDao.getQuestionsAddedAfterDate(new Date());
-        } else {
-            lastTimeCalledModel = lastTimeCalledList.get(0);
-            questionModelList = questionsDao.getQuestionsAddedAfterDate(lastTimeCalledModel.getDate());
-        }
-        newQuestionsProcessModel.setQuestions(questionModelList);
-
-        newQuestionsProcessModel.setDisplayName(DISPLAY_NAME);
-        newQuestionsProcessModel.setEmail(EMAIL);
+        setAttributesToProcess(newQuestionsProcessModel, date);
 
         getModelService().save(newQuestionsProcessModel);
         getBusinessProcessService().startProcess(newQuestionsProcessModel);
 
-        Date date = new Date();
-        lastTimeCalledModel.setDate(date);
-        modelService.save(lastTimeCalledModel);
-
         return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
+    }
+
+    private Date getLastCalledTime(NewQuestionsJobPerformableModel cronJobModel) {
+        List<CronJobHistoryModel> histories = cronJobHistoryService.getCronJobHistoryBy(cronJobModel.getCode());
+        CronJobHistoryModel lastSuccessHistory = histories.stream()
+                .filter(history -> history.getStatus() == CronJobStatus.FINISHED)
+                .max(Comparator.comparing(CronJobHistoryModel::getStartTime))
+                .orElse(null);
+
+        if (lastSuccessHistory != null) {
+            return lastSuccessHistory.getEndTime();
+        } else {
+            return new Date();
+        }
+    }
+
+    private void setAttributesToProcess(NewQuestionsEmailProcessModel newQuestionsProcessModel, Date date) {
+        BaseSiteModel baseSite = baseSiteService.getBaseSiteForUID(SITE_UID);
+        newQuestionsProcessModel.setSite(baseSite);
+        newQuestionsProcessModel.setLanguage(baseSite.getDefaultLanguage());
+        newQuestionsProcessModel.setStore(baseSite.getStores().get(0));
+        newQuestionsProcessModel.setDate(date);
+        newQuestionsProcessModel.setDisplayName(DISPLAY_NAME);
+        newQuestionsProcessModel.setEmail(EMAIL);
     }
 }

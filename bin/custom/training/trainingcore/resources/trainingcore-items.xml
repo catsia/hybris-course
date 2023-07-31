@@ -8,7 +8,6 @@
         <collectiontype code="GenderList" elementtype="Gender" autocreate="true" generate="true" type="list"/>
         <collectiontype code="SwatchColorSet" elementtype="SwatchColorEnum" autocreate="true" generate="true"
                         type="set"/>
-        <collectiontype code="QuestionsList" elementtype="Question" autocreate="true" generate="false" type="list"/>
     </collectiontypes>
 
     <enumtypes>
@@ -35,8 +34,7 @@
                   jaloclass="de.hybris.training.core.jalo.NewQuestionsEmailProcess" >
 
             <attributes>
-                <attribute qualifier="questions" type="QuestionsList">
-                    <description>List of questions</description>
+                <attribute qualifier="date" type="java.util.Date">
                     <modifiers/>
                     <persistence type="property"/>
                 </attribute>
@@ -59,21 +57,6 @@
                   autocreate="true">
         </itemtype>
 
-        <itemtype generate="true"
-                  code="LastTimeCalled"
-                  autocreate="true">
-            <deployment table="LastTimeCalled" typecode="30279"/>
-        <attributes>
-            <attribute qualifier="code" type="java.lang.String">
-                <modifiers unique="true"/>
-                <persistence type="property"/>
-            </attribute>
-            <attribute qualifier="date" type="java.util.Date">
-                <modifiers/>
-                <persistence type="property"/>
-            </attribute>
-        </attributes>
-        </itemtype>
 
         <!-- TypeGroups are for structure of this file only -->
 

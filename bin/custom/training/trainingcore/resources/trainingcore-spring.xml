@@ -263,6 +263,7 @@
 		  parent="abstractEmailContext"
 		  scope="prototype" >
 		<property name="questionConverter" ref="questionConverter"/>
+		<property name="questionsDao" ref="questionsDao"/>
 	</bean>
 
 	<!-- Process resources definition -->
@@ -528,6 +529,7 @@
 		<property name="baseSiteService" ref="baseSiteService"/>
 		<property name="questionsDao" ref="questionsDao"/>
 		<property name="lastTimeCalledDao" ref="lastTimeCalledDao"/>
+		<property name="cronJobHistoryService" ref="cronJobHistoryService"/>
 	</bean>
 
 	<alias name="defaultQuestionsDao" alias="questionsDao" />

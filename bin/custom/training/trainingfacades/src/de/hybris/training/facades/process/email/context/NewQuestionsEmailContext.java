@@ -8,15 +8,18 @@ import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
 import de.hybris.platform.core.model.c2l.LanguageModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
+import de.hybris.training.core.dao.QuestionsDao;
 import de.hybris.training.core.model.NewQuestionsEmailProcessModel;
 import org.springframework.beans.factory.annotation.Required;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NewQuestionsEmailContext extends AbstractEmailContext<NewQuestionsEmailProcessModel> {
     private List<QuestionData> questionsList;
     private Converter<QuestionModel, QuestionData> questionConverter;
+    private QuestionsDao questionsDao;
 
     @Override
     public void init(final NewQuestionsEmailProcessModel processModel, final EmailPageModel emailPageModel) {
@@ -26,10 +29,19 @@ public class NewQuestionsEmailContext extends AbstractEmailContext<NewQuestionsE
         }
         super.init(processModel, emailPageModel);
         if (processModel instanceof NewQuestionsEmailProcessModel) {
-            questionsList = new ArrayList<>();
-            for (QuestionModel questionModel: ((NewQuestionsEmailProcessModel) processModel).getQuestions())  {
-                questionsList.add(getQuestionConverter().convert(questionModel));
+            Date date = ((NewQuestionsEmailProcessModel) processModel).getDate();
+            List<QuestionModel> questionModelList = questionsDao.getQuestionsAddedAfterDate(date);
+            if (!questionModelList.isEmpty()) {
+                questionsList = new ArrayList<>();
+                convertQuestions(questionModelList);
             }
+
+        }
+    }
+
+    private void convertQuestions(List<QuestionModel> questionModelList) {
+        for (QuestionModel questionModel : questionModelList) {
+            questionsList.add(getQuestionConverter().convert(questionModel));
         }
     }
 
@@ -57,14 +69,17 @@ public class NewQuestionsEmailContext extends AbstractEmailContext<NewQuestionsE
         return businessProcessModel.getLanguage();
     }
 
-    protected Converter<QuestionModel, QuestionData> getQuestionConverter()
-    {
+    protected Converter<QuestionModel, QuestionData> getQuestionConverter() {
         return questionConverter;
     }
 
     @Required
-    public void setQuestionConverter(final Converter<QuestionModel, QuestionData> questionConverter)
-    {
+    public void setQuestionConverter(final Converter<QuestionModel, QuestionData> questionConverter) {
         this.questionConverter = questionConverter;
+    }
+
+    @Required
+    public void setQuestionsDao(final QuestionsDao questionsDao) {
+        this.questionsDao = questionsDao;
     }
 }
