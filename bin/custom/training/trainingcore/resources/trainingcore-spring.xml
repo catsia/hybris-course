@@ -528,7 +528,6 @@
 		<property name="businessProcessService" ref="businessProcessService"/>
 		<property name="baseSiteService" ref="baseSiteService"/>
 		<property name="questionsDao" ref="questionsDao"/>
-		<property name="lastTimeCalledDao" ref="lastTimeCalledDao"/>
 		<property name="cronJobHistoryService" ref="cronJobHistoryService"/>
 	</bean>
 
@@ -537,10 +536,6 @@
 		<property name="flexibleSearchService" ref="flexibleSearchService" />
 	</bean>
 
-	<alias name="defaultLastTimeCalledDao" alias="lastTimeCalledDao" />
-	<bean id="defaultLastTimeCalledDao" class="de.hybris.training.core.dao.impl.DefaultLastTimeCalledDao">
-		<property name="flexibleSearchService" ref="flexibleSearchService" />
-	</bean>
 
 	<import resource="/trainingcore/processes/quote/quote-buyer-process-spring.xml"/>
 	<import resource="/trainingcore/processes/quote/quote-salesrep-process-spring.xml"/>

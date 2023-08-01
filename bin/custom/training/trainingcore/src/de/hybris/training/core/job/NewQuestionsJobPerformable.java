@@ -1,9 +1,7 @@
 package de.hybris.training.core.job;
 
-import com.training.model.QuestionModel;
 import de.hybris.platform.cronjob.model.CronJobHistoryModel;
 import de.hybris.platform.servicelayer.cronjob.CronJobHistoryService;
-import de.hybris.training.core.dao.LastTimeCalledDao;
 import de.hybris.training.core.dao.QuestionsDao;
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
 import de.hybris.platform.cronjob.enums.CronJobResult;
@@ -13,7 +11,6 @@ import de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable;
 import de.hybris.platform.servicelayer.cronjob.PerformResult;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.site.BaseSiteService;
-import de.hybris.training.core.model.LastTimeCalledModel;
 import de.hybris.training.core.model.NewQuestionsEmailProcessModel;
 import de.hybris.training.core.model.NewQuestionsJobPerformableModel;
 import org.springframework.beans.factory.annotation.Required;
@@ -29,7 +26,6 @@ public class NewQuestionsJobPerformable extends AbstractJobPerformable<NewQuesti
     private CronJobHistoryService cronJobHistoryService;
     private BaseSiteService baseSiteService;
     private QuestionsDao questionsDao;
-    private LastTimeCalledDao lastTimeCalledDao;
     private final String SITE_UID = "apparel-uk";
 
     private final String EMAIL = "k.l@mail.by";
@@ -46,14 +42,6 @@ public class NewQuestionsJobPerformable extends AbstractJobPerformable<NewQuesti
         this.questionsDao = questionsDao;
     }
 
-    protected LastTimeCalledDao getLastTimeCalledDao() {
-        return lastTimeCalledDao;
-    }
-
-    @Required
-    public void setLastTimeCalledDao(final LastTimeCalledDao lastTimeCalledDao) {
-        this.lastTimeCalledDao = lastTimeCalledDao;
-    }
 
     protected BusinessProcessService getBusinessProcessService() {
         return businessProcessService;
