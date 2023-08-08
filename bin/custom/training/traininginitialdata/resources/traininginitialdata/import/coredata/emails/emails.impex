@@ -1,0 +1,17 @@
+$contentCatalog=apparel-ukContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online]
+
+$emailResource=jar:de.hybris.training.core.setup.CoreSystemSetup&/trainingcore/import/emails
+
+$emailPackageName=de.hybris.training.facades.process.email.context
+
+
+INSERT_UPDATE RendererTemplate	;code[unique=true]			;contextClass								;templateScript[lang=en,translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator];rendererType(code)[default='velocity']
+                                  ;email-newQuestionsBody		;$emailPackageName.NewQuestionsEmailContext	;$emailResource/email-newQuestionsBody.vm
+                                  ;email-newQuestionsSubject	;$emailPackageName.NewQuestionsEmailContext	;$emailResource/email-newQuestionsSubject.vm
+
+INSERT_UPDATE EmailPageTemplate	;$contentCV[unique=true];uid[unique=true]		;active	;frontendTemplateName	;subject(code)							;htmlTemplate(code)		;restrictedPageTypes(code)
+                                   ;						;NewQuestionsEmailTemplate;true	;newQuestionsEmail		;email-newQuestionsSubject				;email-newQuestionsBody	;EmailPage
+
+INSERT_UPDATE EmailPage	;$contentCV[unique=true];uid[unique=true]	;masterTemplate(uid,$contentCV);approvalStatus(code)[default='approved'];fromEmail[lang=en];fromName[lang=en]
+                           ;						;NewQuestionsEmail	;NewQuestionsEmailTemplate;;questions@hybris.com;questions Info

@@ -30,6 +30,32 @@
     <itemtypes>
 
         <!-- Add your item definitions here -->
+        <itemtype code="NewQuestionsEmailProcess" extends="StoreFrontCustomerProcess"
+                  jaloclass="de.hybris.training.core.jalo.NewQuestionsEmailProcess" >
+
+            <attributes>
+                <attribute qualifier="date" type="java.util.Date">
+                    <modifiers/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="email" type="java.lang.String">
+                    <modifiers/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="displayName" type="java.lang.String">
+                    <modifiers/>
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+
+        </itemtype>
+
+        <itemtype generate="true"
+                  code="NewQuestionsJobPerformable"
+                  jaloclass="de.hybris.training.core.jalo.NewQuestionsJobPerformable"
+                  extends="CronJob"
+                  autocreate="true">
+        </itemtype>
 
 
         <!-- TypeGroups are for structure of this file only -->

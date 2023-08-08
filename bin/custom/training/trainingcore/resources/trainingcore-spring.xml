@@ -17,6 +17,7 @@
 	<import resource="classpath:/trainingcore/integration/hot-folder-store-electronics-spring.xml"/>
 	<import resource="classpath:/trainingcore/integration/hot-folder-store-apparel-spring.xml"/>
 	<import resource="classpath:/trainingcore/integration/hot-folder-common-spring.xml"/>
+	<import resource="classpath:/trainingcore/integration/hot-folder-training-spring.xml"/>
 
 	<!-- SystemSetup for the TrainingCore -->
 	<bean id="acceleratorCoreSystemSetup" class="de.hybris.training.core.setup.CoreSystemSetup"
@@ -256,8 +257,21 @@
 		<property name="businessProcessService" ref="businessProcessService"/>
 	</bean>
 
+
+	<bean id="newQuestionsEmailContext"
+		  class="de.hybris.training.facades.process.email.context.NewQuestionsEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype" >
+		<property name="questionConverter" ref="questionConverter"/>
+		<property name="questionsDao" ref="questionsDao"/>
+	</bean>
+
 	<!-- Process resources definition -->
 
+	<bean id="newQuestionsEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/trainingcore/processes/newQuestionsEmailProcess.xml"/>
+	</bean>
 	<bean id="customerRegistrationEmailProcessDefinitionResource"
 	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
 		<property name="resource" value="classpath:/trainingcore/processes/customerRegistrationEmailProcess.xml"/>
@@ -300,6 +314,10 @@
 	</bean>
 
 	<!-- Actions -->
+	<bean id="generateNewQuestionsEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NewQuestionsEmailTemplate"/>
+	</bean>
+
 	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
 	      abstract="true">
 		<property name="modelService" ref="modelService"/>
@@ -502,6 +520,22 @@
 		<property name="eventService" ref="eventService" />
 		<property name="timeService" ref="timeService" />
 	</bean>
+
+	<bean id="newQuestionsJobPerformable"
+		  class="de.hybris.training.core.job.NewQuestionsJobPerformable"
+		  parent="abstractJobPerformable">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="questionsDao" ref="questionsDao"/>
+		<property name="cronJobHistoryService" ref="cronJobHistoryService"/>
+	</bean>
+
+	<alias name="defaultQuestionsDao" alias="questionsDao" />
+	<bean id="defaultQuestionsDao" class="de.hybris.training.core.dao.impl.DefaultQuestionsDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
 
 	<import resource="/trainingcore/processes/quote/quote-buyer-process-spring.xml"/>
 	<import resource="/trainingcore/processes/quote/quote-salesrep-process-spring.xml"/>

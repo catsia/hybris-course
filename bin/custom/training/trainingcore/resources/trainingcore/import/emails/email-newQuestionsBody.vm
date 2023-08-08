@@ -1,0 +1,60 @@
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+
+
+<html>
+<head>
+</head>
+<body bgcolor="#ffffff">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+<tr>
+<td align="center" valign="top">
+<table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+<tr>
+<td align="center" valign="top" bgcolor="#FFFFFF">
+<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+<tr>
+    <td>
+		New Questions
+	</td>
+</tr>
+<tr>
+	#foreach($i in [1..$ctx.questionsList.size()])
+	#set($index = $i - 1)
+	<li>
+		<h3>$ctx.questionsList.get($index).code</h3>
+		$ctx.questionsList.get($index).question
+	</li>
+	#end
+	<td height="30" align="right" valign="middle" bgcolor="#000000">
+		#if (! $ctx.order.guestCustomer )
+		<font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><a href="${ctx.secureBaseUrl}/my-account"><font color="#FFFFFF"></font></a> |
+		#end <a href="${ctx.baseUrl}/store-finder"><font color="#FFFFFF"></font></a> &nbsp;&nbsp;</font>
+	</td>
+</tr>
+<tr>
+	<td valign="middle">
+		<font color="#666666" size="2" face="Arial, Helvetica, sans-serif">
+			<div style="display:block; margin-top:10px;margin-bottom:10px;"></div>
+		</font>
+	</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
