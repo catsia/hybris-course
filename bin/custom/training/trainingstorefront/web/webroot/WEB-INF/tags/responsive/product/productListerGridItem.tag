@@ -41,6 +41,11 @@
 			 <div class="question-count">
                 Questions asked: ${product.questionsCount}
             </div>
+            <div class="warranty-years">
+            <c:if test="${not empty product.warrantyYears}">
+                Warranty years: ${product.warrantyYears}
+            </c:if>
+            </div>
 			<ycommerce:testId code="product_productPrice">
 				<div class="price"><product:productListerItemPrice product="${product}"/></div>
 			</ycommerce:testId>

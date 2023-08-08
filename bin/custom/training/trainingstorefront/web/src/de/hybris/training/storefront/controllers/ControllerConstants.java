@@ -3,6 +3,7 @@
  */
 package de.hybris.training.storefront.controllers;
 
+import com.training.model.ProductWarrantyYearsComponentModel;
 import de.hybris.platform.acceleratorcms.model.components.CMSTabParagraphContainerModel;
 import de.hybris.platform.acceleratorcms.model.components.CartSuggestionComponentModel;
 import de.hybris.platform.acceleratorcms.model.components.CategoryFeatureComponentModel;
@@ -55,6 +56,7 @@ public interface ControllerConstants
 			String SubCategoryListComponent = _Prefix + SubCategoryListComponentModel._TYPECODE + _Suffix; 
 			String SimpleResponsiveBannerComponent = _Prefix + SimpleResponsiveBannerComponentModel._TYPECODE + _Suffix; 
 			String CMSTabParagraphContainer = _Prefix + CMSTabParagraphContainerModel._TYPECODE + _Suffix; 
+			String ProductWarrantyYearsComponent = _Prefix + ProductWarrantyYearsComponentModel._TYPECODE + _Suffix;
 		}
 	}
 
