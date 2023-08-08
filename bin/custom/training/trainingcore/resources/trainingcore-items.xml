@@ -30,6 +30,16 @@
     <itemtypes>
 
         <!-- Add your item definitions here -->
+        <itemtype code="ProductWarrantyYearsComponent" generate="true"
+            extends="SimpleCMSComponent" autocreate="true"
+            jaloclass="com.training.jalo.QuestionsCMSComponent">
+            <attributes>
+                <attribute qualifier="years" generate="true" type="java.lang.Integer">
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
         <itemtype code="NewQuestionsEmailProcess" extends="StoreFrontCustomerProcess"
                   jaloclass="de.hybris.training.core.jalo.NewQuestionsEmailProcess" >
 
@@ -55,6 +65,28 @@
                   jaloclass="de.hybris.training.core.jalo.NewQuestionsJobPerformable"
                   extends="CronJob"
                   autocreate="true">
+        </itemtype>
+
+        <itemtype generate="true" code="TestType" autocreate="true">
+            <deployment table="TestType" typecode="30298" />
+            <attributes>
+                <attribute qualifier="code" type="java.lang.String">
+                    <modifiers optional="false" unique="true"/>
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="something" type="java.lang.Integer">
+                    <modifiers optional="false"/>
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
+        </itemtype>
+
+        <itemtype generate="true" code="Product" autocreate="false">
+            <attributes>
+                <attribute qualifier="warrantyYears" type="java.lang.Integer">
+                    <persistence type="property" />
+                </attribute>
+            </attributes>
         </itemtype>
 
 

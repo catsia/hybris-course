@@ -38,6 +38,7 @@ INSERT_UPDATE SolrSearchConfig;description[unique=true];pageSize
 # Declare the indexed type Product
 INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];facet[default=true];facetType(code);facetSort(code);priority;visible;useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;facetDisplayNameProvider;customFacetSortProvider;topValuesProvider;rangeSets(name)
  ;$solrIndexedType;questionsCount;int;;;;;;MultiSelectOr;Alpha;4100;true;;;productQuestionsProvider;;;defaultTopValuesProvider;questionsCountRange
+ ;$solrIndexedType;warrantyYears;int;;;;;;MultiSelectOr;Alpha;4100;true;;;productWarrantyYearsProvider;;;defaultTopValuesProvider;
 
 
 INSERT_UPDATE SolrIndexedType;identifier[unique=true];type(code);variant;sorts(&sortRefID)
@@ -49,6 +50,7 @@ UPDATE BaseSite;uid[unique=true];solrFacetSearchConfiguration(name)
 # Define price range set
 INSERT_UPDATE SolrValueRangeSet;name[unique=true];qualifier;type;solrValueRanges(&rangeValueRefID)
 ;questionsCountRange;;int;rangeQuestion1,rangeQuestion2,rangeQuestion3,rangeQuestion4
+;warrantyYearsRange;;int;warrantyYears1,warrantyYears2,warrantyYears3
 # Define price ranges
 INSERT_UPDATE SolrValueRange;&rangeValueRefID;solrValueRangeSet(name)[unique=true];name[unique=true];from;to
 ;rangeQuestion1;questionsCountRange;0;0;0
@@ -59,6 +61,9 @@ INSERT_UPDATE SolrValueRange;&rangeValueRefID;solrValueRangeSet(name)[unique=tru
 ;rangeQuestion6;questionsCountRange;5;5;5
 ;rangeQuestion7;questionsCountRange;6;6;6
 ;rangeQuestion8;questionsCountRange;7-more;7;500
+;warrantyYears1;warrantyYearsRange;0;0;0
+;warrantyYears2;warrantyYearsRange;1;1;1
+;warrantyYears3;warrantyYearsRange;2;2;2
 
 # Non-facet properties
 INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;valueProviderParameter
@@ -87,3 +92,4 @@ INSERT_UPDATE SolrSortField;sort(indexedType(identifier),code)[unique=true];fiel
 
 INSERT_UPDATE SolrSearchQueryProperty; indexedProperty(name, solrIndexedType(identifier))[unique = true]; facet[default = true]; facetType(code); priority; facetDisplayNameProvider; facetSortProvider; facetTopValuesProvider; includeInResponse[default = true]; searchQueryTemplate(name, indexedType(identifier))[unique = true][default = DEFAULT:$solrIndexedType]
 ;questionsCount:$solrIndexedType;;MultiSelectOr; 2000  ;productQuestionsProvider;;;;
+;warrantyYears:$solrIndexedType;;MultiSelectOr; 2000  ;productWarrantyYearsProvider;;;;

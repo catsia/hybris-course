@@ -27,4 +27,7 @@
 	<cms:pageSlot position="Questions" var="comp" element="div">
          <cms:component component="${comp}" element="div"/>
      </cms:pageSlot>
+    <cms:pageSlot position="WarrantyYears" var="comp" element="div">
+          <cms:component component="${comp}" element="div"/>
+     </cms:pageSlot>
 </template:page>
